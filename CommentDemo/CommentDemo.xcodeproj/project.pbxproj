@@ -13,6 +13,8 @@
 		846CE4781D712F6A00C8C6BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846CE4761D712F6A00C8C6BB /* Main.storyboard */; };
 		846CE47A1D712F6A00C8C6BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846CE4791D712F6A00C8C6BB /* Assets.xcassets */; };
 		846CE47D1D712F6A00C8C6BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846CE47B1D712F6A00C8C6BB /* LaunchScreen.storyboard */; };
+		846CE4861D712FD900C8C6BB /* BulletView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846CE4851D712FD900C8C6BB /* BulletView.m */; };
+		846CE4891D712FF800C8C6BB /* BulletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 846CE4881D712FF800C8C6BB /* BulletManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		846CE4791D712F6A00C8C6BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		846CE47C1D712F6A00C8C6BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		846CE47E1D712F6A00C8C6BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		846CE4841D712FD900C8C6BB /* BulletView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletView.h; sourceTree = "<group>"; };
+		846CE4851D712FD900C8C6BB /* BulletView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletView.m; sourceTree = "<group>"; };
+		846CE4871D712FF800C8C6BB /* BulletManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletManager.h; sourceTree = "<group>"; };
+		846CE4881D712FF800C8C6BB /* BulletManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,10 @@
 				846CE4711D712F6A00C8C6BB /* AppDelegate.m */,
 				846CE4731D712F6A00C8C6BB /* ViewController.h */,
 				846CE4741D712F6A00C8C6BB /* ViewController.m */,
+				846CE4841D712FD900C8C6BB /* BulletView.h */,
+				846CE4851D712FD900C8C6BB /* BulletView.m */,
+				846CE4871D712FF800C8C6BB /* BulletManager.h */,
+				846CE4881D712FF800C8C6BB /* BulletManager.m */,
 				846CE4761D712F6A00C8C6BB /* Main.storyboard */,
 				846CE4791D712F6A00C8C6BB /* Assets.xcassets */,
 				846CE47B1D712F6A00C8C6BB /* LaunchScreen.storyboard */,
@@ -152,7 +162,9 @@
 			files = (
 				846CE4751D712F6A00C8C6BB /* ViewController.m in Sources */,
 				846CE4721D712F6A00C8C6BB /* AppDelegate.m in Sources */,
+				846CE4861D712FD900C8C6BB /* BulletView.m in Sources */,
 				846CE46F1D712F6A00C8C6BB /* main.m in Sources */,
+				846CE4891D712FF800C8C6BB /* BulletManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
