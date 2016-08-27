@@ -37,7 +37,16 @@
     [button setTitle:@"点我生成弹幕" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
+    [self.view addSubview:button];
     
+    
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(300, 100, 100, 50);
+    //    button.backgroundColor = [UIColor redColor];
+    [button setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
+    [button setTitle:@"stop" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(buttonActionStop) forControlEvents:UIControlEventTouchUpInside];
+    [button sizeToFit];
     [self.view addSubview:button];
     
 }
@@ -47,10 +56,14 @@
     [self.manager start];
 }
 
+- (void)buttonActionStop {
+    [self.manager stop];
+}
+
 - (void)addBulletView:(BulletView *)view {
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    view.frame = CGRectMake(width, 300 + view.trajectory * 40, CGRectGetWidth(view.bounds), CGRectGetHeight(view.bounds));
+    view.frame = CGRectMake(width, 300 + view.trajectory * 60, CGRectGetWidth(view.bounds), CGRectGetHeight(view.bounds));
     [self.view addSubview:view];
     [view startAnimation];
 }

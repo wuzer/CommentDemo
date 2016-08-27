@@ -18,13 +18,27 @@
 // 存储弹幕view的数组
 @property (nonatomic, strong) NSMutableArray *bulletViews;
 
+@property BOOL bStopAnimation;
+
 @end
 
 @implementation BulletManager
 
+- (instancetype)init {
+    
+    if (self = [super init]) {
+        self.bStopAnimation = YES;
+    }
+    return self;
+}
+
 
 - (void)start {
     
+    if (!self.bStopAnimation) {
+        return;
+    }
+    self.bStopAnimation = NO;
     [self.bulletComments removeAllObjects];
     [self.bulletComments addObjectsFromArray:self.dataSource];
 
@@ -34,7 +48,17 @@
 
 - (void)stop {
     
+    if (self.bStopAnimation) {
+        return;
+    }
     
+    self.bStopAnimation = YES;
+    [self.bulletViews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        BulletView *view = obj;
+        [view stopAniamtion];
+        view = nil;
+    }];
+    [self.bulletViews removeAllObjects];
 }
 
 - (void)initBulletComment {
@@ -59,7 +83,12 @@
     }
 }
 
+
 - (void)creatBulletView:(NSString *)comment trajectory:(int)trajectory {
+    
+    if (self.bStopAnimation) {
+        return;
+    }
     
     BulletView *view = [[BulletView alloc] initWithComment:comment];
     view.trajectory = trajectory;
@@ -67,10 +96,43 @@
     
     __weak typeof(view) weakView = view;
     __weak typeof(self) weakSelf = self;
-    weakView.moveStatusBlock = ^{
+    weakView.moveStatusBlock = ^(moveStatus status){
         
-        [weakView stopAniamtion];
-        [weakSelf.bulletViews removeObject:weakView];
+        if (self.bStopAnimation) {
+            return;
+        }
+
+        switch (status) {
+            case start:
+                [weakSelf.bulletViews addObject:weakView];
+                break;
+            case enter:{
+                NSString *comment = [weakSelf nextComment];
+                if (comment) {
+                    [weakSelf creatBulletView:comment trajectory:trajectory];
+                }
+                break;
+            }
+            case end:{
+                // 释放资源
+                if ([weakSelf.bulletViews containsObject:weakView]) {
+                    [weakView stopAniamtion];
+                    [weakSelf.bulletViews removeObject:weakView];
+                }
+                
+                // 弹幕循环
+                if (weakSelf.bulletViews.count == 0) {
+                    // 屏幕上已经没有弹幕
+                    self.bStopAnimation = YES;
+                    [weakSelf start];
+                }
+                
+                break;
+            }
+            default:
+                break;
+        }
+        
     };
     
     if (self.generrateViewBlock) {
@@ -79,14 +141,37 @@
     
 }
 
+- (NSString *)nextComment {
+    
+    if (self.bulletComments.count == 0) {
+        return nil;
+    }
+    
+    NSString *comment = [self.bulletComments firstObject];
+    
+    if (comment) {
+        [self.bulletComments removeObjectAtIndex:0];
+    }
+    
+    return comment;
+}
+
+
+
 #pragma mark - lazyload
 
 - (NSMutableArray *)dataSource {
     
     if (!_dataSource) {
-        _dataSource = [NSMutableArray arrayWithArray:@[@"弹幕弹幕我来了",
-                                                        @"弹幕弹幕我又来了-----",
-                                                        @"弹幕弹幕我走了-----------------"
+        _dataSource = [NSMutableArray arrayWithArray:@[@"弹幕了",
+                                                        @"幕弹幕我又来了",
+                                                        @"弹---------",
+                                                       @"弹幕我来了",
+                                                       @"弹幕弹幕我又来了-----",
+                                                       @"弹幕弹幕我走了--------",
+                                                       @"弹幕弹来了",
+                                                       @"弹幕弹幕我又来了-----",
+                                                       @"弹幕幕我走-----"
                                                         ]];
     }
     return _dataSource;
